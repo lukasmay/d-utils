@@ -1,0 +1,8 @@
+./enterprise/docker-compose.yml
+./network/docker-compose.yml
+god_debug
+controller
+./control/docker-compose.yml
+scadalts
+database
+hmi

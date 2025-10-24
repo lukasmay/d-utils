@@ -1,0 +1,19 @@
+groups:
+  # 'frontend' group will start web-app and nginx-proxy
+  frontend:
+    - web-app
+    - nginx-proxy
+
+  # 'database' group will start all DB related services
+  thing2:
+    - db-server
+    - db-worker
+
+# Not in use yet
+defaults:
+  dstart:
+    - u
+  dstop:
+    - s
+  dlist:
+    - none
