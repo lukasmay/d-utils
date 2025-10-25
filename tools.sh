@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 
-# get_services() {
-#     output_file="services.txt"
-#     > "$output_file"
-#
-#     find . -type f -name "docker-compose.yml" | while read -r file; do
-#       echo "$file" >> "$output_file"
-#       yq eval '.services | keys' "$file" | grep -v '^#' | sed 's/^..//' | grep -v '^$' >> "$output_file"
-#     done
-#
-#     echo "Service names have been written to $output_file"
-# }
+get_services() {
+
+    : > "$services_file"
+
+    find . -type f -name "docker-compose.yml" | while read -r file; do
+      echo "$file" >> "$services_file"
+      yq eval '.services | keys' "$file" | grep -v '^#' | sed 's/^..//' | grep -v '^$' >> "$services_file"
+    done
+
+    echo "Service names have been written to $services_file"
+}
 
 
 # Function to read the file and build the map
@@ -25,7 +25,6 @@ build_compose_map() {
             complete_list+=("$line")
             compose_file=("$SCRIPT_DIR$line")
             compose_list+=("$compose_file")
-            echo $compose_file
 
         else
             complete_list+=("$line")
@@ -330,7 +329,6 @@ complete_list=()
 compose_list=()
 service_list=()
 
-# get_services
 
 # Enable running script from anywhere
 SCRIPT_DIR="$(pwd)/"
@@ -338,6 +336,8 @@ SCRIPT_DIR="$(pwd)/"
 # Path to the file containing the compose files and container names
 services_file="${SCRIPT_DIR}scripts-config/services.txt"
 config_file="${SCRIPT_DIR}scripts-config/tools.yaml"
+
+get_services
 build_compose_map
 
 # Set up autocompletion 
